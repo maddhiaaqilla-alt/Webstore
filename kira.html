@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kira-Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; scroll-behavior:smooth; }
+  html { scroll-behavior: smooth; }
+  body { background:#111; color:#fff; }
+
+  /* Navbar */
+  nav {
+    position:fixed; top:0; left:0; width:100%;
+    background:rgba(0,0,0,0.7); padding:15px 40px;
+    display:flex; justify-content:space-between; align-items:center;
+    z-index:1000; border-bottom:1px solid rgba(255,255,255,0.1);
+    box-shadow:0 4px 10px rgba(0,0,0,0.2); backdrop-filter: blur(5px);
+  }
+  nav h1 { color:#fff; font-size:1.7rem; font-weight:600; }
+  nav ul { list-style:none; display:flex; gap:25px; }
+  nav ul li a { color:#fff; text-decoration:none; font-weight:500; padding:5px 10px; border-radius:5px; transition:0.3s; }
+  nav ul li a:hover { background:rgba(255,255,255,0.1); color:#25d366; }
+
+  /* Hero */
+  #home { position:relative; display:flex; flex-direction:column; justify-content:center; align-items:center; min-height:100vh; text-align:center; background:url("https://i.imgur.com/xy9lEl9.jpg") center/cover fixed; }
+  #home::before { content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:0; }
+  .hero-content { position:relative; z-index:1; max-width:700px; color:white; }
+  .hero-content h2 { font-size:3rem; margin-bottom:20px; text-shadow:2px 2px 8px rgba(0,0,0,0.7); }
+  .hero-content p { font-size:1.2rem; margin-bottom:30px; text-shadow:1px 1px 6px rgba(0,0,0,0.6); }
+  .btn { display:inline-block; padding:15px 30px; font-size:1.1rem; font-weight:600; border-radius:30px; background:linear-gradient(135deg, #25d366, #128c7e); color:white; text-decoration:none; transition:0.3s; }
+  .btn:hover { background:linear-gradient(135deg, #128c7e, #25d366); transform:scale(1.05); }
+
+  /* Sections */
+  section { padding:80px 20px; }
+  section h2 { text-align:center; margin-bottom:40px; font-size:2.5rem; font-weight:600; color:white; text-shadow:1px 1px 4px rgba(0,0,0,0.7); }
+
+  /* Catalog */
+  .search-box { text-align:center; margin-bottom:30px; }
+  .search-box input { padding:10px 15px; width:80%; max-width:400px; border-radius:25px; border:2px solid #ccc; font-size:1rem; }
+  .catalog { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:20px; max-width:1000px; margin:0 auto; }
+  .card { position:relative; background:#222; border-radius:15px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.3); text-align:center; transition:transform 0.3s, box-shadow 0.3s; }
+  .card img { width:100%; height:180px; object-fit:cover; }
+  .overlay-text { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); color:#fff; display:flex; justify-content:center; align-items:center; font-size:1.1rem; font-weight:bold; text-transform:uppercase; }
+  .card:hover { transform:translateY(-8px); box-shadow:0 10px 25px rgba(0,0,0,0.5); }
+
+  /* Fitur Unggulan */
+  #features { background:rgba(255,255,255,0.05); padding:80px 20px; }
+  #features h2 { color:#25d366; margin-bottom:50px; }
+  .features-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:25px; max-width:1000px; margin:0 auto; }
+  .feature-card { background:rgba(0,0,0,0.6); border-radius:15px; padding:25px; text-align:center; transition:transform 0.3s, box-shadow 0.3s; color:white; }
+  .feature-card:hover { transform:translateY(-10px); box-shadow:0 8px 20px rgba(0,0,0,0.4); }
+  .feature-card div { font-size:50px; margin-bottom:15px; }
+
+  /* Contact */
+  #contact { background:rgba(0,0,0,0.6); color:white; min-height:50vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:60px 20px; }
+  #contact .btn { margin-top:20px; }
+
+  footer { background:#222; color:#ccc; text-align:center; padding:15px; font-size:0.9rem; }
+
+  /* Floating WA */
+  .wa-float { position:fixed; bottom:20px; right:20px; background:#25d366; color:white; width:55px; height:55px; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:28px; box-shadow:0 4px 10px rgba(0,0,0,0.3); z-index:1000; text-decoration:none; transition:transform 0.3s; }
+  .wa-float:hover { transform:scale(1.1); }
+
+  /* Back to Top Button */
+  #backToTop { position:fixed; bottom:90px; right:20px; width:50px; height:50px; background:#25d366; color:white; border:none; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:24px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.3); display:none; z-index:999; }
+  #backToTop:hover { transform:scale(1.1); }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <h1>Kira-Store</h1>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#catalog">Catalog</a></li>
+    <li><a href="#features">Fitur Unggulan</a></li>
+    <li><a href="#contact">Hubungi</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" data-aos="fade-down">
+  <div class="hero-content">
+    <h2>Selamat Datang di Kira-Store</h2>
+    <p>Kami menyediakan akun premium dengan harga terjangkau.<br> Klik tombol di bawah untuk langsung chat dengan admin.</p>
+    <a href="https://wa.me/6287778408498?text=min%20mau%20beli%20akun" class="btn">Hubungi Kami</a>
+  </div>
+</section>
+
+<!-- Catalog -->
+<section id="catalog">
+  <h2 data-aos="fade-up">Catalog Produk</h2>
+  <div class="search-box" data-aos="fade-up">
+    <input type="text" id="searchInput" placeholder="Cari produk...">
+  </div>
+  <div class="catalog" id="productList">
+    <div class="card" data-name="Akun Premium A" data-aos="fade-up">
+      <img src="https://i.imgur.com/xy9lEl9.jpg" alt="Produk 1">
+      <div class="overlay-text">Tersedia</div>
+    </div>
+    <div class="card" data-name="Akun Premium B" data-aos="fade-up" data-aos-delay="100">
+      <img src="https://i.imgur.com/abc123.jpg" alt="Produk 2">
+      <div class="overlay-text">Tersedia</div>
+    </div>
+    <div class="card" data-name="Akun Premium C" data-aos="fade-up" data-aos-delay="200">
+      <img src="https://i.imgur.com/def456.jpg" alt="Produk 3">
+      <div class="overlay-text">Tersedia</div>
+    </div>
+  </div>
+</section>
+
+<!-- Fitur Unggulan -->
+<section id="features" data-aos="fade-up">
+  <h2>Fitur Unggulan Kami</h2>
+  <div class="features-grid">
+    <div class="feature-card" data-aos="fade-up">
+      <div>⚡</div>
+      <h3>Respon Cepat</h3>
+      <p>Admin kami selalu membalas pesanmu dengan cepat dan ramah.</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+      <div>💎</div>
+      <h3>Produk Berkualitas</h3>
+      <p>Setiap akun selalu terjamin aktif dan aman untuk digunakan.</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+      <div>💰</div>
+      <h3>Harga Terjangkau</h3>
+      <p>Akun premium dengan harga bersahabat untuk semua kalangan.</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+      <div>🔒</div>
+      <h3>Keamanan Terjamin</h3>
+      <p>Privasi akun pelanggan selalu kami jaga dengan sistem aman.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" data-aos="fade-up">
+  <h2>Hubungi Kami</h2>
+  <p>Silakan hubungi admin melalui WhatsApp untuk pemesanan dan informasi lebih lanjut.</p>
+  <a href="https://wa.me/6287778408498?text=min%20mau%20beli%20akun" class="btn">Chat WhatsApp</a>
+</section>
+
+<footer>
+  © 2025 Kira-Store
+</footer>
+
+<!-- Floating WA -->
+<a href="https://wa.me/6287778408498?text=min%20mau%20beli%20akun" class="wa-float">💬</a>
+
+<!-- Back to Top -->
+<button id="backToTop">↑</button>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init({ duration: 800, once: true });
+
+  // Search Produk
+  const searchInput = document.getElementById("searchInput");
+  const products = document.querySelectorAll(".card");
+  searchInput.addEventListener("keyup", function() {
+    const filter = searchInput.value.toLowerCase();
+    products.forEach(card => {
+      const name = card.getAttribute("data-name").toLowerCase();
+      card.style.display = name.includes(filter) ? "" : "none";
+    });
+  });
+
+// Back to Top Button
+  const backToTop = document.getElementById("backToTop");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      backToTop.style.display = "flex";
+    } else {
+      backToTop.style.display = "none";
+    }
+  });
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  // Smooth scroll for navbar links
+  const navLinks = document.querySelectorAll("nav ul li a");
+  navLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute("href"));
+      target.scrollIntoView({ behavior: "smooth" });
+    });
+  });
+</script>
+
+</body>
+</html>
